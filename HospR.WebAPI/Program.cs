@@ -41,7 +41,6 @@ app.MapGet("/patient", () => new Patient(1, "Ivan", "+380", "p@gmail.com")); //t
 
 app.MapGet("/show/patient/{id:int}/{name:alpha}",
     (int id, string name) => 
-        new Patient(1, "Ivan", "", "") == 
         new Patient(id, name, String.Empty, String.Empty));
 
 app.Run();
