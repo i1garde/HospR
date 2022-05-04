@@ -6,5 +6,5 @@ public interface IUnitOfWork: IDisposable {
     IPatientCardRepository PatientCard { get; }
     IAppointmentRepository Appointment { get; }
     IAppointmentResultRepository AppointmentResult { get; }
-    int Save();
+    Task SaveAsync();
 }

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HospR.Core\HospR.Core.csproj" />
+    <ProjectReference Include="..\HospR.Infrastructure\HospR.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

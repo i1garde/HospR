@@ -10,6 +10,7 @@ namespace HospR.Core.Entities
         int Id, 
         string Name, 
         string ContactNumber, 
-        string Email
+        string Email,
+        PatientCard Card
         );
 }

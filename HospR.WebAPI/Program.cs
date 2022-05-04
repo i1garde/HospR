@@ -1,4 +1,6 @@
 using HospR.Core.Entities;
+using HospR.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddDbContext
+
+var connectionString = builder.Configuration.GetConnectionString("AppDb"); 
+builder.Services.AddDbContext<HospRDbContext>(x => x.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
@@ -39,11 +43,11 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-app.MapGet("/patient", () => new Patient(1, "Ivan", "+380", "p@gmail.com")); //test Patient record
+app.MapGet("/patient", () => new Patient(1, "Ivan", "+380", "p@gmail.com", null)); //test Patient record
 
 app.MapGet("/show/patient/{id:int}/{name:alpha}",
     (int id, string name) => 
-        new Patient(id, name, String.Empty, String.Empty));
+        new Patient(id, name, String.Empty, String.Empty, null));
 
 app.Run();
 

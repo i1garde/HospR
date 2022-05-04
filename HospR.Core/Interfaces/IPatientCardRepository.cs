@@ -2,7 +2,7 @@
 
 namespace HospR.Core.Interfaces;
 
-public interface IPatientCardRepository : IRepository<PatientCard>
+public interface IPatientCardRepository : IAsyncRepository<PatientCard>
 {
     
 }

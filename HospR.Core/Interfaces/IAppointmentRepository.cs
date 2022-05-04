@@ -2,7 +2,7 @@
 
 namespace HospR.Core.Interfaces;
 
-public interface IAppointmentRepository : IRepository<Appointment>
+public interface IAppointmentRepository : IAsyncRepository<Appointment>
 {
     
 }

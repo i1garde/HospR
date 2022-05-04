@@ -5,15 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using HospR.Core.Entities;
 
 namespace HospR.Infrastructure
 {
-    internal class HospRDbContext : DbContext
+    public class HospRDbContext : DbContext
     {
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<PatientCard> PatientCards { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<AppointmentResult> AppointmentResults { get; set; }
+
         public HospRDbContext(DbContextOptions<HospRDbContext> options)
             : base(options)
         {
-            
+            Database.EnsureCreatedAsync();
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

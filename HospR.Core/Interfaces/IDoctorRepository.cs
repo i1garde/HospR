@@ -2,7 +2,7 @@
 
 namespace HospR.Core.Interfaces;
 
-public interface IDoctorRepository : IRepository<Doctor>
+public interface IDoctorRepository : IAsyncRepository<Doctor>
 {
     
 }
