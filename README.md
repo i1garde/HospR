@@ -1,1 +1,4 @@
-HospR (Under development)
+# HospR - Hospital registry application
+
+### Status: Under development
+
