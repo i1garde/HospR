@@ -1,5 +1,7 @@
 using HospR.Core.Entities;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using HospR.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddDbContext
+
+var connectionString = builder.Configuration.GetConnectionString("AppDb");
+builder.Services.AddDbContext<HospRDbContext>(x => x.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
@@ -20,25 +24,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
 app.MapGet("/patient", () => new Patient(1, "Ivan", "+380", "p@gmail.com")); //test Patient record
 
 app.MapGet("/show/patient/{id:int}/{name:alpha}",
@@ -46,8 +31,3 @@ app.MapGet("/show/patient/{id:int}/{name:alpha}",
         new Patient(id, name, String.Empty, String.Empty));
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

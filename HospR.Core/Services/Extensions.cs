@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HospR.Core.Services
 {
-    internal class Services
+    public class Services
     {
     }
 }
