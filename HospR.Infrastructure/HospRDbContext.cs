@@ -22,7 +22,7 @@ namespace HospR.Infrastructure
         {
             Database.EnsureCreatedAsync();
         }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var configuration = new ConfigurationBuilder()
@@ -32,6 +32,11 @@ namespace HospR.Infrastructure
 
             var connectionString = configuration.GetConnectionString("AppDb");
             optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

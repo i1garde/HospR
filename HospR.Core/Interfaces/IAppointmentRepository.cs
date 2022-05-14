@@ -1,8 +1,7 @@
-﻿using HospR.Core.Entities;
+using HospR.Core.Entities;
 
 namespace HospR.Core.Interfaces;
 
-public interface IAppointmentRepository : IAsyncRepository<Appointment>
+public interface IAppointmentRepository : IRepository<Appointment>
 {
-    
 }

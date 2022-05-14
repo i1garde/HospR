@@ -1,8 +1,7 @@
-﻿using HospR.Core.Entities;
+using HospR.Core.Entities;
 
 namespace HospR.Core.Interfaces;
 
-public interface IDoctorRepository : IAsyncRepository<Doctor>
+public interface IDoctorRepository : IRepository<Doctor>
 {
-    
 }

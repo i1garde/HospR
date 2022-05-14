@@ -2,6 +2,8 @@ using HospR.Core.Entities;
 using HospR.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using HospR.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("AppDb"); 
+var connectionString = builder.Configuration.GetConnectionString("AppDb");
 builder.Services.AddDbContext<HospRDbContext>(x => x.UseSqlServer(connectionString));
 
 var app = builder.Build();
@@ -24,34 +26,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
-app.MapGet("/patient", () => new Patient(1, "Ivan", "+380", "p@gmail.com", null)); //test Patient record
+// TODO: Join Patient and PatientCard Entities as they have 1 to 1 relationship and 
+// anyway in db they 'll join in one
+//app.MapGet("/patient", () => new Patient(1, "Ivan", "+380", "p@gmail.com", null)); //test Patient record
 
 app.MapGet("/show/patient/{id:int}/{name:alpha}",
     (int id, string name) => 
         new Patient(id, name, String.Empty, String.Empty, null));
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

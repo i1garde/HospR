@@ -1,10 +1,12 @@
-﻿namespace HospR.Core.Interfaces;
+namespace HospR.Core.Interfaces;
 
-public interface IUnitOfWork: IDisposable {
-    IPatientRepository Patient { get; }
-    IDoctorRepository Doctor { get; }
-    IPatientCardRepository PatientCard { get; }
-    IAppointmentRepository Appointment { get; }
-    IAppointmentResultRepository AppointmentResult { get; }
-    Task SaveAsync();
+public interface IUnitOfWork
+{
+    IPatientRepository Patients { get; }
+    IDoctorRepository Doctors { get; }
+    IPatientCardRepository PatientCards { get; }
+    IAppointmentRepository Appointments { get; }
+    IAppointmentResultRepository AppointmentResults { get; }
+
+    Task CompleteAsync();
 }
