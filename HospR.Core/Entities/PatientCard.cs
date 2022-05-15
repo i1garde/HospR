@@ -1,8 +1,13 @@
-﻿namespace HospR.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-public record PatientCard(
-    int Id, 
-    int PatientId, 
-    Patient Patient,
-    List<AppointmentResult> AppointmentResults
-    );
+namespace HospR.Core.Entities;
+
+public record PatientCard
+{
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int PatientCardId { get; init; }
+    public Patient Patient { get; init; }
+    public int PatientId { get; init; }
+    public List<AppointmentResult> AppointmentResults { get; init; }
+    private PatientCard() { }
+}

@@ -28,10 +28,17 @@ app.UseHttpsRedirection();
 
 // TODO: Join Patient and PatientCard Entities as they have 1 to 1 relationship and 
 // anyway in db they 'll join in one
-//app.MapGet("/patient", () => new Patient(1, "Ivan", "+380", "p@gmail.com", null)); //test Patient record
+app.MapGet("/patient", () => new Patient("Ivan", "+380", "p@gmail.com")); //test Patient record
+
+List<Patient> patList = new List<Patient>();
+patList.Add(new Patient("Ivan", "+380", "p@gmail.com"));
+patList.Add(new Patient("Daria", "+3801", "d@gmail.com"));
+patList.Add(new Patient("Maria", "+3802", "m@gmail.com"));
+
+app.MapGet("/patients", () => patList);
 
 app.MapGet("/show/patient/{id:int}/{name:alpha}",
     (int id, string name) => 
-        new Patient(id, name, String.Empty, String.Empty, null));
+        new Patient(name, String.Empty, String.Empty));
 
 app.Run();
