@@ -2,12 +2,21 @@
 
 namespace HospR.Core.Entities;
 
-public record PatientCard
+public class PatientCard : EntityBase<int>
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int PatientCardId { get; init; }
-    public Patient Patient { get; init; }
-    public int PatientId { get; init; }
-    public List<AppointmentResult> AppointmentResults { get; init; }
-    private PatientCard() { }
+    public Patient Patient { get; set; }
+    public int PatientId { get; set; }
+    public List<AppointmentResult> AppointmentResults { get; set; }
+
+    private PatientCard()
+    {
+
+    }
+
+    public PatientCard(Patient patient, int patientId, List<AppointmentResult> appointmentResults)
+    {
+        Patient = patient;
+        PatientId = patientId;
+        AppointmentResults = appointmentResults;
+    }
 }

@@ -1,6 +1,6 @@
 namespace HospR.Core.Interfaces;
 
-public interface IUnitOfWork
+public interface IUnitOfWork : IDisposable
 {
     IPatientRepository Patients { get; }
     IDoctorRepository Doctors { get; }
@@ -8,5 +8,5 @@ public interface IUnitOfWork
     IAppointmentRepository Appointments { get; }
     IAppointmentResultRepository AppointmentResults { get; }
 
-    Task CompleteAsync();
+    void SaveChanges();
 }

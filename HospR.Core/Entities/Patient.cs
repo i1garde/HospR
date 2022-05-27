@@ -7,19 +7,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospR.Core.Entities
 {
-    public record Patient
+    public class Patient : EntityBase<int>
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PatientId { get; init; }
-        public string Name { get; init; }
-        public string ContactNumber { get; init; }
-        public string Email { get; init; }
+        public string Name { get; set; }
+        public string ContactNumber { get; set; }
+        public string Email { get; set; }
         public PatientCard PatientCard { get; set; }
-        private Patient() { }
-        public Patient(string name, string contactNum, string email){
+
+        private Patient()
+        {
+            
+        }
+
+        public Patient(string name, string contactNumber, string email, PatientCard patientCard)
+        {
             Name = name;
-            ContactNumber = contactNum;
+            ContactNumber = contactNumber;
             Email = email;
+            PatientCard = patientCard;
         }
     }
 }

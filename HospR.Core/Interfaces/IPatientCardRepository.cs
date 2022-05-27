@@ -2,6 +2,6 @@ using HospR.Core.Entities;
 
 namespace HospR.Core.Interfaces;
 
-public interface IPatientCardRepository : IRepository<PatientCard>
+public interface IPatientCardRepository : IRepository<PatientCard, int>
 {
 }

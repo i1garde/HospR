@@ -20,7 +20,7 @@ namespace HospR.Infrastructure
         public HospRDbContext(DbContextOptions<HospRDbContext> options)
             : base(options)
         {
-            Database.EnsureCreatedAsync();
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,7 +30,7 @@ namespace HospR.Infrastructure
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("AppDb");
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connectionString);
         }
 
