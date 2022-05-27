@@ -2,12 +2,11 @@ using System.Linq.Expressions;
 
 namespace HospR.Core.Interfaces;
 
-public interface IRepository<T> where T : class
+public interface IRepository<T, K>
 {
-    Task<IEnumerable<T>> All();
-    Task<T> GetById(Guid id);
-    Task<bool> Add(T entity);
-    Task<bool> Delete(Guid id);
-    Task<bool> Upsert(T entity);
-    Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate);
+    IEnumerable<T> All();
+    T GetById(K id);
+    void Add(T entity);
+    void Delete(K id);
+    void Update(T entity);
 }

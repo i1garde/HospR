@@ -1,5 +1,7 @@
+using HospR.Core.Entities;
+
 namespace HospR.Core.Interfaces;
 
-public interface IPatientCardRepository
+public interface IPatientCardRepository : IRepository<PatientCard, int>
 {
 }

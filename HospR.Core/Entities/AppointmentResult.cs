@@ -1,8 +1,10 @@
 ﻿namespace HospR.Core.Entities;
 
-public record AppointmentResult(
-    int Id, 
-    string Diagnosis, 
-    Doctor Doctor,
-    DateOnly Date
-    );
+public class AppointmentResult : EntityBase<int>
+{
+    public string Diagnosis { get; set; }
+    public Doctor Doctor { get; set; }
+    public DateTime Date { get; set; }
+    public int PatientCardId { get; set; }
+    public PatientCard PatientCard { get; set; }
+}

@@ -1,5 +1,7 @@
+using HospR.Core.Entities;
+
 namespace HospR.Core.Interfaces;
 
-public interface IAppointmentRepository
+public interface IAppointmentRepository : IRepository<Appointment, int>
 {
 }

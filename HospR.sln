@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospR.WebAPI", "HospR.WebAPI\HospR.WebAPI.csproj", "{E129BE19-96C4-45FA-BD89-861597A835B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospR.Core", "HospR.Core\HospR.Core.csproj", "{4CFCB9BE-5BBC-4D79-A867-40FBADF24FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospR.Core", "HospR.Core\HospR.Core.csproj", "{4CFCB9BE-5BBC-4D79-A867-40FBADF24FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospR.Infrastructure", "HospR.Infrastructure\HospR.Infrastructure.csproj", "{9F622321-F43D-4938-95FC-97D8ACBF7AFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospR.Infrastructure", "HospR.Infrastructure\HospR.Infrastructure.csproj", "{9F622321-F43D-4938-95FC-97D8ACBF7AFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospR.WebAPI", "HospR.WebAPI\HospR.WebAPI.csproj", "{50B86008-0C03-431E-A673-D16BB6780298}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E129BE19-96C4-45FA-BD89-861597A835B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E129BE19-96C4-45FA-BD89-861597A835B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E129BE19-96C4-45FA-BD89-861597A835B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E129BE19-96C4-45FA-BD89-861597A835B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4CFCB9BE-5BBC-4D79-A867-40FBADF24FE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4CFCB9BE-5BBC-4D79-A867-40FBADF24FE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CFCB9BE-5BBC-4D79-A867-40FBADF24FE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{9F622321-F43D-4938-95FC-97D8ACBF7AFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F622321-F43D-4938-95FC-97D8ACBF7AFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F622321-F43D-4938-95FC-97D8ACBF7AFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50B86008-0C03-431E-A673-D16BB6780298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B86008-0C03-431E-A673-D16BB6780298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B86008-0C03-431E-A673-D16BB6780298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B86008-0C03-431E-A673-D16BB6780298}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

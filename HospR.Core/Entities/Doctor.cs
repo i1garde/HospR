@@ -7,10 +7,10 @@ using HospR.Core.Enumerations;
 
 namespace HospR.Core.Entities
 {
-    public record Doctor(
-        int Id, 
-        string Name,
-        MedicalSpecialty MedicalSpecialty,
-        string ContactNumber
-        );
+    public class Doctor : EntityBase<int>
+    {
+        public string Name { get; set; }
+        public MedicalSpecialty MedicalSpecialty { get; set; }
+        public string ContactNumber { get; set; }
+    }
 }
