@@ -44,10 +44,6 @@ namespace HospR.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId");
-
                     b.ToTable("Appointments");
                 });
 
@@ -69,14 +65,12 @@ namespace HospR.Infrastructure.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PatientCardId")
+                    b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientCardId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("AppointmentResults");
                 });
@@ -130,81 +124,16 @@ namespace HospR.Infrastructure.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("HospR.Core.Entities.PatientCard", b =>
+            modelBuilder.Entity("HospR.Core.Entities.AppointmentResult", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId")
-                        .IsUnique();
-
-                    b.ToTable("PatientCards");
-                });
-
-            modelBuilder.Entity("HospR.Core.Entities.Appointment", b =>
-                {
-                    b.HasOne("HospR.Core.Entities.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HospR.Core.Entities.Patient", "Patient")
-                        .WithMany()
+                    b.HasOne("HospR.Core.Entities.Patient", null)
+                        .WithMany("AppointmentResults")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("HospR.Core.Entities.AppointmentResult", b =>
-                {
-                    b.HasOne("HospR.Core.Entities.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HospR.Core.Entities.PatientCard", "PatientCard")
-                        .WithMany("AppointmentResults")
-                        .HasForeignKey("PatientCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("PatientCard");
-                });
-
-            modelBuilder.Entity("HospR.Core.Entities.PatientCard", b =>
-                {
-                    b.HasOne("HospR.Core.Entities.Patient", "Patient")
-                        .WithOne("PatientCard")
-                        .HasForeignKey("HospR.Core.Entities.PatientCard", "PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("HospR.Core.Entities.Patient", b =>
-                {
-                    b.Navigation("PatientCard")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("HospR.Core.Entities.PatientCard", b =>
                 {
                     b.Navigation("AppointmentResults");
                 });

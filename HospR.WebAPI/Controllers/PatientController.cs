@@ -1,7 +1,8 @@
 ﻿using HospR.Core.Entities;
-using HospR.Core.Interfaces;
+using HospR.Core.Interfaces.Services;
 using HospR.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,45 +12,85 @@ namespace HospR.WebAPI.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IPatientService _patientService;
 
-        public PatientController(IUnitOfWork unitOfWork)
+        public PatientController(IPatientService patientService)
         {
-            _unitOfWork = unitOfWork;
+            _patientService = patientService;
         }
 
-        // GET: api/<PatientController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("GetPatient")]
+        public IActionResult GetPatient(int patientId)
         {
-            return new string[] { "value1", "value2" };
+            var patient = _patientService.Get(patientId);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(patient);
+            }
         }
 
-        // GET api/<PatientController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("GetAllPatients")]
+        public IActionResult GetAllPatients()
         {
-            return "value";
+            var patients = _patientService.GetAll();
+            if (patients == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(patients);
+            }
         }
 
-        // POST api/<PatientController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("AddPatient")]
+        public IActionResult AddPatient(string name, string number, string email)
         {
-            _unitOfWork.Patients.Add(new Patient("Ivan", "+38", "some@mail.com", null));
-            _unitOfWork.SaveChanges();
+            var patient = new Patient(name, number, email, new List<AppointmentResult>());
+            _patientService.Add(patient);
+            return Ok();
         }
 
-        // PUT api/<PatientController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("UpdatePatient")]
+        public IActionResult UpdatePatient(int patientId, string name, string number, string email)
         {
+            var fetchedPatient = _patientService.Get(patientId);
+            if(fetchedPatient == null)
+            {
+                return BadRequest();
+            }
+            if(name != null)
+            { 
+                fetchedPatient.Name = name;
+            }
+            if (number != null)
+            {
+                fetchedPatient.ContactNumber = number;
+            }
+            if (email != null)
+            {
+                fetchedPatient.Email = email;
+            }
+            _patientService.Update(patientId, fetchedPatient);
+            return Ok();
         }
 
-        // DELETE api/<PatientController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("DeletePatient")]
+        public IActionResult DeletePatient(int patientId)
         {
+            _patientService.Delete(patientId);
+            return Ok();
+        }
+
+        [HttpGet("GetDiseaseHistory")]
+        public IActionResult GetDiseaseHistory(int patientId)
+        {
+            var diseaseHistory = _patientService.GetAllAppointmentResultsByPatientId(patientId);
+            return Ok(diseaseHistory);
         }
     }
 }

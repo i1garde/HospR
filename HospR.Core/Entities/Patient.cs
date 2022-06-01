@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HospR.Core.Entities
 {
@@ -12,19 +13,20 @@ namespace HospR.Core.Entities
         public string Name { get; set; }
         public string ContactNumber { get; set; }
         public string Email { get; set; }
-        public PatientCard PatientCard { get; set; }
+        [JsonIgnore]
+        public List<AppointmentResult> AppointmentResults { get; set; }
 
         private Patient()
         {
             
         }
 
-        public Patient(string name, string contactNumber, string email, PatientCard patientCard)
+        public Patient(string name, string contactNumber, string email, List<AppointmentResult> appointmentResults)
         {
             Name = name;
             ContactNumber = contactNumber;
             Email = email;
-            PatientCard = patientCard;
+            AppointmentResults = appointmentResults;
         }
     }
 }

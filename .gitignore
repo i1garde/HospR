@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+/HospR.WebAPI/appsettings.json
+/HospR.WebAPI/appsettings.Development.json
+
 # User-specific files
 *.rsuser
 *.suo

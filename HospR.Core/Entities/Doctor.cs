@@ -12,5 +12,17 @@ namespace HospR.Core.Entities
         public string Name { get; set; }
         public MedicalSpecialty MedicalSpecialty { get; set; }
         public string ContactNumber { get; set; }
+
+        private Doctor()
+        {
+
+        }
+
+        public Doctor(string name, string contactNumber, MedicalSpecialty medSpec)
+        {
+            Name = name;
+            ContactNumber = contactNumber;
+            MedicalSpecialty = medSpec;
+        }
     }
 }

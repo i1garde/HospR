@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace HospR.Core.Interfaces;
+namespace HospR.Core.Interfaces.Infrastructure;
 
 public interface IRepository<T, K>
 {

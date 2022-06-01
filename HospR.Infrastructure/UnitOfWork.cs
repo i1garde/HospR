@@ -1,4 +1,4 @@
-﻿using HospR.Core.Interfaces;
+﻿using HospR.Core.Interfaces.Infrastructure;
 using HospR.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,6 @@ namespace HospR.Infrastructure
 
         public IPatientRepository Patients { get; private set; }
         public IDoctorRepository Doctors { get; private set; }
-        public IPatientCardRepository PatientCards { get; private set; }
         public IAppointmentRepository Appointments { get; private set; }
         public IAppointmentResultRepository AppointmentResults { get; private set; }
 
@@ -24,7 +23,6 @@ namespace HospR.Infrastructure
             _context = context;
             Patients = new PatientRepository(context);
             Doctors = new DoctorRepository(context);
-            PatientCards = new PatientCardRepository(context);
             Appointments = new AppointmentRepository(context);
             AppointmentResults = new AppointmentResultRepository(context);
         }

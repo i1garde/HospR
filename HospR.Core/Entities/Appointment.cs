@@ -8,9 +8,22 @@ namespace HospR.Core.Entities
 {
     public class Appointment : EntityBase<int>
     {
-        public Patient Patient { get; set; }
-        public Doctor Doctor { get; set; }
+        public int PatientId { get; set; }
+        public int DoctorId { get; set; }
         public DateTime StarTime { get; set; }
         public DateTime EndTime { get; set; }
+
+        private Appointment()
+        {
+
+        }
+
+        public Appointment(int patientId, int doctorId, DateTime start, DateTime end)
+        {
+            PatientId = patientId;
+            DoctorId = doctorId;
+            StarTime = start;
+            EndTime = end;
+        }
     }
 }

@@ -1,4 +1,6 @@
-using HospR.Core.Interfaces;
+using HospR.Core.Interfaces.Infrastructure;
+using HospR.Core.Interfaces.Services;
+using HospR.Core.Services;
 using HospR.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +13,12 @@ namespace HospR.WebAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             builder.Services.AddDbContext<HospRDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddScoped<IPatientService, PatientService>();
+            builder.Services.AddScoped<IDoctorService, DoctorService>();
+            builder.Services.AddScoped<IAppointmentService, AppointmentService>();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

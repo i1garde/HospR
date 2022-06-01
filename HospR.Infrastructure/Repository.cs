@@ -1,5 +1,5 @@
 ﻿using HospR.Core.Entities;
-using HospR.Core.Interfaces;
+using HospR.Core.Interfaces.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
