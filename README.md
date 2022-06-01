@@ -1,4 +1,4 @@
 # HospR - Hospital registry application
 
-### Status: Under development
+### Status: MVP
 
