@@ -18,36 +18,36 @@ namespace HospR.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(Appointment appointment)
+        public async Task Add(Appointment appointment)
         {
-            _unitOfWork.Appointments.Add(appointment);
+            await _unitOfWork.Appointments.Add(appointment);
             _unitOfWork.SaveChanges();
         }
 
-        public void Delete(int appointmentId)
+        public async Task Delete(int appointmentId)
         {
-            _unitOfWork.Appointments.Delete(appointmentId);
+            await _unitOfWork.Appointments.Delete(appointmentId);
             _unitOfWork.SaveChanges();
         }
 
-        public Appointment Get(int appointmentId) => _unitOfWork.Appointments.GetById(appointmentId);
+        public async Task<Appointment> Get(int appointmentId) => await _unitOfWork.Appointments.GetById(appointmentId);
 
-        public List<Appointment> GetAll() => _unitOfWork.Appointments.All().ToList();
+        public List<Appointment> GetAll() => _unitOfWork.Appointments.All().Result.ToList();
 
-        public void Update(int appointmentIdToChange, Appointment updatedAppointment)
+        public async Task Update(int appointmentIdToChange, Appointment updatedAppointment)
         {
-            var fetchedAppointment = _unitOfWork.Appointments.GetById(appointmentIdToChange);
+            var fetchedAppointment = await _unitOfWork.Appointments.GetById(appointmentIdToChange);
             fetchedAppointment.PatientId = updatedAppointment.PatientId;
             fetchedAppointment.DoctorId = updatedAppointment.DoctorId;
             fetchedAppointment.StarTime = updatedAppointment.StarTime;
             fetchedAppointment.EndTime = updatedAppointment.EndTime;
-            _unitOfWork.Appointments.Update(fetchedAppointment);
+            await _unitOfWork.Appointments.Update(fetchedAppointment);
             _unitOfWork.SaveChanges();
         }
 
         public List<Appointment> GetAllAppointmentsOnInterval(DateTime startDate, DateTime endDate)
         {
-            var appointments = _unitOfWork.Appointments.All().Where(x => x.StarTime >= startDate && x.EndTime <= endDate).ToList();
+            var appointments = _unitOfWork.Appointments.All().Result.Where(x => x.StarTime >= startDate && x.EndTime <= endDate).ToList();
             return appointments;
         }
     }

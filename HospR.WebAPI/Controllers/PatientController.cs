@@ -3,6 +3,7 @@ using HospR.Core.Interfaces.Services;
 using HospR.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using HospR.Core.Interfaces.Infrastructure;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,9 +21,9 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpGet("GetPatient")]
-        public IActionResult GetPatient(int patientId)
+        public async Task<IActionResult> GetPatient(int patientId)
         {
-            var patient = _patientService.Get(patientId);
+            var patient = await _patientService.Get(patientId);
             if (patient == null)
             {
                 return NotFound();
@@ -34,9 +35,9 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpGet("GetAllPatients")]
-        public IActionResult GetAllPatients()
+        public async Task<IActionResult> GetAllPatients()
         {
-            var patients = _patientService.GetAll();
+            var patients = await _patientService.GetAll();
             if (patients == null)
             {
                 return NotFound();
@@ -48,17 +49,17 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpPost("AddPatient")]
-        public IActionResult AddPatient(string name, string number, string email)
+        public async Task<IActionResult> AddPatient(string name, string number, string email)
         {
             var patient = new Patient(name, number, email, new List<AppointmentResult>());
-            _patientService.Add(patient);
+            await _patientService.Add(patient);
             return Ok();
         }
 
         [HttpPost("UpdatePatient")]
-        public IActionResult UpdatePatient(int patientId, string name, string number, string email)
+        public async Task<IActionResult> UpdatePatient(int patientId, string name, string number, string email)
         {
-            var fetchedPatient = _patientService.Get(patientId);
+            var fetchedPatient = await _patientService.Get(patientId);
             if(fetchedPatient == null)
             {
                 return BadRequest();
@@ -75,14 +76,14 @@ namespace HospR.WebAPI.Controllers
             {
                 fetchedPatient.Email = email;
             }
-            _patientService.Update(patientId, fetchedPatient);
+            await _patientService.Update(patientId, fetchedPatient);
             return Ok();
         }
 
         [HttpPost("DeletePatient")]
-        public IActionResult DeletePatient(int patientId)
+        public async Task<IActionResult> DeletePatient(int patientId)
         {
-            _patientService.Delete(patientId);
+            await _patientService.Delete(patientId);
             return Ok();
         }
 

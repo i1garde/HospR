@@ -18,43 +18,43 @@ namespace HospR.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(Patient patient)
+        public async Task Add(Patient patient)
         {
-            _unitOfWork.Patients.Add(patient);
+            await _unitOfWork.Patients.Add(patient);
             _unitOfWork.SaveChanges();
         }
 
-        public Patient Get(int patientId) => _unitOfWork.Patients.GetById(patientId);
+        public async Task<Patient> Get(int patientId) => await _unitOfWork.Patients.GetById(patientId);
 
-        public void AddToDiseaseHistory(int patientId, AppointmentResult appointmentResult)
+        public async Task AddToDiseaseHistory(int patientId, AppointmentResult appointmentResult)
         {
-            var patient = _unitOfWork.Patients.GetById(patientId);
+            var patient = await _unitOfWork.Patients.GetById(patientId);
             patient.AppointmentResults.Add(appointmentResult);
-            _unitOfWork.Patients.Update(patient);
+            await _unitOfWork.Patients.Update(patient);
         }
 
-        public List<Patient> GetAll() => _unitOfWork.Patients.All().ToList();
+        public async Task<IEnumerable<Patient>> GetAll() => await _unitOfWork.Patients.All();
 
-        public void Delete(int patientId)
+        public async Task Delete(int patientId)
         {
-            _unitOfWork.Patients.Delete(patientId);
+            await _unitOfWork.Patients.Delete(patientId);
             _unitOfWork.SaveChanges();
         }
 
-        public void Update(int patientIdToChange, Patient updatedPatient)
+        public async Task Update(int patientIdToChange, Patient updatedPatient)
         {
-            var fetchedPatient = _unitOfWork.Patients.GetById(patientIdToChange);
+            var fetchedPatient = await _unitOfWork.Patients.GetById(patientIdToChange);
             fetchedPatient.Name = updatedPatient.Name;
             fetchedPatient.Email = updatedPatient.Email;
             fetchedPatient.ContactNumber = updatedPatient.ContactNumber;
             fetchedPatient.AppointmentResults = updatedPatient.AppointmentResults;
-            _unitOfWork.Patients.Update(fetchedPatient);
+            await _unitOfWork.Patients.Update(fetchedPatient);
             _unitOfWork.SaveChanges();
         }
 
         public List<AppointmentResult> GetAllAppointmentResultsByPatientId(int patientId)
         {
-            return _unitOfWork.AppointmentResults.All().Where(x => x.PatientId == patientId).ToList();
+            return _unitOfWork.AppointmentResults.All().Result.Where(x => x.PatientId == patientId).ToList();
         }
 
         public bool PatientIsBusy(int patientId, List<Appointment> appointments)

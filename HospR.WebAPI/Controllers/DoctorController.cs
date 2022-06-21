@@ -17,17 +17,17 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpPost("AddDoctor")]
-        public IActionResult AddDoctor(string name, string number, MedicalSpecialty medSpec)
+        public async Task<IActionResult> AddDoctor(string name, string number, MedicalSpecialty medSpec)
         {
             var doctor = new Doctor(name, number, medSpec);
-            _doctorService.Add(doctor);
+            await _doctorService.Add(doctor);
             return Ok();
         }
 
         [HttpGet("GetDoctor")]
-        public IActionResult GetDoctor(int doctorId)
+        public async Task<IActionResult> GetDoctor(int doctorId)
         {
-            var doctor = _doctorService.Get(doctorId);
+            var doctor = await _doctorService.Get(doctorId);
             if (doctor == null)
             {
                 return NotFound();
@@ -53,9 +53,9 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpPost("UpdateDoctor")]
-        public IActionResult UpdateDoctor(int doctorId, string name, string number, MedicalSpecialty medSpec)
+        public async Task<IActionResult> UpdateDoctor(int doctorId, string name, string number, MedicalSpecialty medSpec)
         {
-            var fetchedDoctor = _doctorService.Get(doctorId);
+            var fetchedDoctor = await _doctorService.Get(doctorId);
             if (fetchedDoctor == null)
             {
                 return BadRequest();
@@ -77,9 +77,9 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpPost("DeleteDoctor")]
-        public IActionResult DeleteDoctor(int doctorId)
+        public async Task<IActionResult> DeleteDoctor(int doctorId)
         {
-            _doctorService.Delete(doctorId);
+            await _doctorService.Delete(doctorId);
             return Ok();
         }
 
@@ -91,9 +91,9 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpPost("EstablishDiagnosis")]
-        public IActionResult EstablishDiagnosis(string diagnosis, int appointmentId)
+        public async Task<IActionResult> EstablishDiagnosis(string diagnosis, int appointmentId)
         {
-            _doctorService.SetDiagnosis(diagnosis, appointmentId);
+            await _doctorService.SetDiagnosis(diagnosis, appointmentId);
             return Ok();
         }
     }

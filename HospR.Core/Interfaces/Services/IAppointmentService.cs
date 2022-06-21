@@ -9,11 +9,11 @@ namespace HospR.Core.Interfaces.Services
 {
     public interface IAppointmentService
     {
-        void Add(Appointment appointment);
-        Appointment Get(int appointmentId);
+        Task Add(Appointment appointment);
+        Task<Appointment> Get(int appointmentId);
         List<Appointment> GetAll();
-        void Delete(int appointmentId);
-        void Update(int appointmentIdToChange, Appointment updatedAppointment);
+        Task Delete(int appointmentId);
+        Task Update(int appointmentIdToChange, Appointment updatedAppointment);
         List<Appointment> GetAllAppointmentsOnInterval(DateTime startDate, DateTime endDate);
     }
 }

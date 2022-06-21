@@ -9,14 +9,14 @@ namespace HospR.Core.Interfaces.Services
 {
     public interface IDoctorService
     {
-        void Add(Doctor doctor);
-        Doctor Get(int doctorId);
+        Task Add(Doctor doctor);
+        Task<Doctor> Get(int doctorId);
         List<Doctor> GetAll();
-        void Delete(int doctorId);
-        void Update(int doctorIdToChange, Doctor updatedDoctor);
+        Task Delete(int doctorId);
+        Task Update(int doctorIdToChange, Doctor updatedDoctor);
         List<Doctor> GetAllAvaliableDoctors(DateTime date);
         List<Doctor> GetAllBuzyDoctors(DateTime date);
-        void SetDiagnosis(string diagnosis, int appointmentId);
+        Task SetDiagnosis(string diagnosis, int appointmentId);
         bool DoctorIsBusy(int doctorId, List<Appointment> appointments);
     }
 }
