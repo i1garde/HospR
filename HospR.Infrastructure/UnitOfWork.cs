@@ -27,13 +27,13 @@ namespace HospR.Infrastructure
             AppointmentResults = new AppointmentResultRepository(context);
         }
 
-        protected virtual async void Dispose(bool disposing)
+        public virtual void Dispose(bool disposing)
         {
             if (!this.isDisposed)
             {
                 if (disposing)
                 {
-                    await _context.DisposeAsync();
+                    _context.Dispose();
                 }
                 this.isDisposed = true;
             }
@@ -45,9 +45,9 @@ namespace HospR.Infrastructure
             GC.SuppressFinalize(this);
         }
 
-        public async void SaveChanges()
+        public void SaveChanges()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

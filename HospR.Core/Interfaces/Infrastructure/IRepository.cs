@@ -4,9 +4,9 @@ namespace HospR.Core.Interfaces.Infrastructure;
 
 public interface IRepository<T, K>
 {
-    Task<IEnumerable<T>> All();
-    Task<T> GetById(K id);
-    Task Add(T entity);
-    Task Delete(K id);
-    Task Update(T entity);
+    IEnumerable<T> All();
+    T GetById(K id);
+    void Add(T entity);
+    void Delete(K id);
+    void Update(T entity);
 }

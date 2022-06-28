@@ -18,37 +18,37 @@ namespace HospR.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Add(Doctor doctor)
+        public void Add(Doctor doctor)
         {
-            await _unitOfWork.Doctors.Add(doctor);
+            _unitOfWork.Doctors.Add(doctor);
             _unitOfWork.SaveChanges();
         }
 
-        public async Task Delete(int doctorId)
+        public void Delete(int doctorId)
         {
-            await _unitOfWork.Doctors.Delete(doctorId);
+            _unitOfWork.Doctors.Delete(doctorId);
             _unitOfWork.SaveChanges();
         }
 
-        public async Task<Doctor> Get(int doctorId) => await _unitOfWork.Doctors.GetById(doctorId);
+        public Doctor Get(int doctorId) => _unitOfWork.Doctors.GetById(doctorId);
 
-        public List<Doctor> GetAll() => _unitOfWork.Doctors.All().Result.ToList();
+        public List<Doctor> GetAll() => _unitOfWork.Doctors.All().ToList();
 
-        public async Task Update(int doctorIdToChange, Doctor updatedDoctor)
+        public void Update(int doctorIdToChange, Doctor updatedDoctor)
         {
-            var fetchedDoctor = await _unitOfWork.Doctors.GetById(doctorIdToChange);
+            var fetchedDoctor = _unitOfWork.Doctors.GetById(doctorIdToChange);
             fetchedDoctor.Name = updatedDoctor.Name;
             fetchedDoctor.MedicalSpecialty = updatedDoctor.MedicalSpecialty;
             fetchedDoctor.ContactNumber = updatedDoctor.ContactNumber;
-            await _unitOfWork.Doctors.Update(fetchedDoctor);
+            _unitOfWork.Doctors.Update(fetchedDoctor);
             _unitOfWork.SaveChanges();
         }
 
         public List<Doctor> GetAllBuzyDoctors(DateTime date)
         {
-            var appointments = _unitOfWork.Appointments.All().Result.Where(app => app.StarTime <= date && app.EndTime >= date).ToList();
+            var appointments = _unitOfWork.Appointments.All().Where(app => app.StarTime <= date && app.EndTime >= date).ToList();
             var listOfDoctorIds = appointments.Select(x => x.DoctorId).ToList();
-            var listOfDoctors = listOfDoctorIds.Select(x => _unitOfWork.Doctors.GetById(x).Result).ToList();
+            var listOfDoctors = listOfDoctorIds.Select(x => _unitOfWork.Doctors.GetById(x)).ToList();
             return listOfDoctors;
         }
 
@@ -60,11 +60,11 @@ namespace HospR.Core.Services
             return freeDoctors;
         }
 
-        public async Task SetDiagnosis(string diagnosis, int appointmentId)
+        public void SetDiagnosis(string diagnosis, int appointmentId)
         {
-            var appointment = await _unitOfWork.Appointments.GetById(appointmentId);
-            var patient = await _unitOfWork.Patients.GetById(appointment.PatientId);
-            var doctor = await _unitOfWork.Doctors.GetById(appointment.DoctorId);
+            var appointment = _unitOfWork.Appointments.GetById(appointmentId);
+            var patient = _unitOfWork.Patients.GetById(appointment.PatientId);
+            var doctor = _unitOfWork.Doctors.GetById(appointment.DoctorId);
             if(patient.AppointmentResults == null)
             {
                 patient.AppointmentResults = new List<AppointmentResult>() { new AppointmentResult(diagnosis, doctor.Id, appointment.StarTime, patient.Id) };
@@ -73,8 +73,8 @@ namespace HospR.Core.Services
             {
                 patient.AppointmentResults.Add(new AppointmentResult(diagnosis, doctor.Id, appointment.StarTime, patient.Id));
             }
-            await _unitOfWork.Patients.Update(patient);
-            await _unitOfWork.Appointments.Delete(appointmentId);
+            _unitOfWork.Patients.Update(patient);
+            _unitOfWork.Appointments.Delete(appointmentId);
             _unitOfWork.SaveChanges();
         }
 

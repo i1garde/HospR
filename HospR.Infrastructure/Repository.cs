@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace HospR.Infrastructure
 {
@@ -18,30 +17,29 @@ namespace HospR.Infrastructure
             this._hospRDbContext = context;
         }
 
-        public async Task Add(T entity)
+        public void Add(T entity)
         {
-            await this._hospRDbContext.Set<T>().AddAsync(entity);
+            this._hospRDbContext.Set<T>().Add(entity);
         }
 
-        public async Task<IEnumerable<T>> All()
+        public IEnumerable<T> All()
         {
-            return await _hospRDbContext.Set<T>().ToListAsync();
+            return _hospRDbContext.Set<T>();
         }
 
-        public async Task Delete(K id)
+        public void Delete(K id)
         {
-            var get = await this.GetById(id);
-            _hospRDbContext.Set<T>().Remove(get);
+            _hospRDbContext.Set<T>().Remove(this.GetById(id));
         }
 
-        public async Task<T> GetById(K id)
+        public T GetById(K id)
         {
-            return await _hospRDbContext.Set<T>().FindAsync(id) ?? throw new InvalidOperationException();
+            return _hospRDbContext.Set<T>().Find(id);
         }
 
-        public async Task Update(T entity)
+        public void Update(T entity)
         {
-            T find = await this.GetById(entity.Id);
+            T find = this.GetById(entity.Id);
             _hospRDbContext.Entry(find).CurrentValues.SetValues(entity);
         }
     }

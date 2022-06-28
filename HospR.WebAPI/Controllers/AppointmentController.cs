@@ -21,10 +21,10 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpPost("AddAppointment")]
-        public async Task<IActionResult> AddAppointment(int patientId, int doctorId, DateTime start, DateTime end)
+        public IActionResult AddAppointment(int patientId, int doctorId, DateTime start, DateTime end)
         {
-            var patient = await _patientService.Get(patientId);
-            var doctor = await _doctorService.Get(doctorId);
+            var patient = _patientService.Get(patientId);
+            var doctor = _doctorService.Get(doctorId);
             if(patient == null || doctor == null)
             {
                 return BadRequest();
@@ -38,14 +38,14 @@ namespace HospR.WebAPI.Controllers
             }
             //
             var appointment = new Appointment(patientId, doctorId, start, end);
-            await _appointmentService.Add(appointment);
+            _appointmentService.Add(appointment);
             return Ok();
         }
 
         [HttpGet("GetAppointment")]
-        public async Task<IActionResult> GetAppointment(int appointmentId)
+        public IActionResult GetAppointment(int appointmentId)
         {
-            var doctor = await _appointmentService.Get(appointmentId);
+            var doctor = _appointmentService.Get(appointmentId);
             if (doctor == null)
             {
                 return NotFound();
@@ -71,11 +71,11 @@ namespace HospR.WebAPI.Controllers
         }
 
         [HttpPost("UpdateAppointment")]
-        public async Task<IActionResult> UpdateAppointment(int appointmentId, int patientId, int doctorId, DateTime start, DateTime end)
+        public IActionResult UpdateAppointment(int appointmentId, int patientId, int doctorId, DateTime start, DateTime end)
         {
-            var fetchedAppointment = await _appointmentService.Get(appointmentId);
-            var fetchedDoctor = await _doctorService.Get(doctorId);
-            var fetchedPatient = await _patientService.Get(patientId);
+            var fetchedAppointment = _appointmentService.Get(appointmentId);
+            var fetchedDoctor = _doctorService.Get(doctorId);
+            var fetchedPatient = _patientService.Get(patientId);
             if (fetchedAppointment == null)
             {
                 return BadRequest();
@@ -88,14 +88,14 @@ namespace HospR.WebAPI.Controllers
             {
                 return BadRequest();
             }
-            await _appointmentService.Update(appointmentId, fetchedAppointment);
+            _appointmentService.Update(appointmentId, fetchedAppointment);
             return Ok();
         }
 
         [HttpPost("DeleteAppointment")]
-        public async Task<IActionResult> DeleteAppointment(int appointmentId)
+        public IActionResult DeleteAppointment(int appointmentId)
         {
-            await _appointmentService.Delete(appointmentId);
+            _appointmentService.Delete(appointmentId);
             return Ok();
         }
 
