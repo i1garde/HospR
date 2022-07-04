@@ -92,5 +92,19 @@ namespace HospR.WebAPI.Controllers
             var diseaseHistory = _patientService.GetAllAppointmentResultsByPatientId(patientId);
             return Ok(diseaseHistory);
         }
+        
+        [HttpGet("GetAllPatientsWithNameLongerThanFour")]
+        public async Task<IActionResult> GetAllPatientsWithNameLongerThanFour()
+        {
+            var patients = await _patientService.GetAllPatientsWithNameLongerThanFourAsync();
+            if (patients == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(patients);
+            }
+        }
     }
 }

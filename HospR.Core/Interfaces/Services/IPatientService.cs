@@ -17,5 +17,6 @@ namespace HospR.Core.Interfaces.Services
         void AddToDiseaseHistory(int patientId, AppointmentResult appointmentResult);
         List<AppointmentResult> GetAllAppointmentResultsByPatientId(int patientId);
         bool PatientIsBusy(int patientId, List<Appointment> appointments);
+        public Task<IEnumerable<Patient>> GetAllPatientsWithNameLongerThanFourAsync();
     }
 }

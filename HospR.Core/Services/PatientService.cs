@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HospR.Core.Interfaces.Services;
 using HospR.Core.Interfaces.Infrastructure;
+using LanguageExt;
 
 namespace HospR.Core.Services
 {
@@ -61,5 +62,12 @@ namespace HospR.Core.Services
         {
             return appointments.Any(x => x.PatientId == patientId);
         }
+        
+        //Testing monadic Task func
+        public async Task<IEnumerable<Patient>> GetAllPatientsWithNameLongerThanFourAsync() =>
+            await _unitOfWork.Patients.AllPatientsAsync()
+                .Map(x => 
+                    x.Where(s => s.Name.Length > 4)
+                );
     }
 }

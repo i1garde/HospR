@@ -2,6 +2,7 @@ using HospR.Core.Interfaces.Infrastructure;
 using HospR.Core.Interfaces.Services;
 using HospR.Core.Services;
 using HospR.Infrastructure;
+using HospR.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospR.WebAPI
@@ -16,6 +17,7 @@ namespace HospR.WebAPI
             builder.Services.AddControllers();
             builder.Services.AddDbContext<HospRDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddScoped<IPatientRepository, PatientRepository>();
             builder.Services.AddScoped<IPatientService, PatientService>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
             builder.Services.AddScoped<IAppointmentService, AppointmentService>();
